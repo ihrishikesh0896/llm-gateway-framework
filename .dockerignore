@@ -1,0 +1,70 @@
+# ── Secrets & local config ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Version control & personal tooling ───────────────────────────────────────
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+.claude/
+memory/
+
+# ── Python build artefacts ────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.venv/
+venv/
+
+# ── Test & dev tooling ────────────────────────────────────────────────────────
+tests/
+conftest.py
+.pytest_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+.ruff_cache/
+requirements-dev.txt
+
+# ── Runtime data ──────────────────────────────────────────────────────────────
+gateway.db
+*.db
+*.db-shm
+*.db-wal
+
+# ── Other service build contexts (each builds from its own context) ────────────
+services/
+
+# ── Docs, specs & repo meta ───────────────────────────────────────────────────
+*.md
+openapi.yaml
+openapi.json
+TODO.md
+
+# ── Usage examples (not needed at runtime) ────────────────────────────────────
+usage/
+
+# ── Compose & helper scripts ──────────────────────────────────────────────────
+docker-compose.yml
+docker-compose*.yml
+*.sh
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+*.jpeg
+*.jpg
+*.png
+.DS_Store

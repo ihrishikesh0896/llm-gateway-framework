@@ -1,0 +1,23 @@
+# Fallback routing chains
+# If the primary provider is down or errors, the gateway tries each model in order.
+
+fallbacks:
+  gpt-4o:
+    - claude-sonnet-4-6
+    - gemini-1.5-pro
+
+  gpt-4o-mini:
+    - claude-haiku-4-5-20251001
+    - gemini-1.5-flash
+
+  claude-opus-4-7:
+    - gpt-4o
+    - gemini-1.5-pro
+
+  claude-sonnet-4-6:
+    - gpt-4o
+    - gemini-1.5-flash
+
+  gemini-1.5-pro:
+    - gpt-4o
+    - claude-sonnet-4-6

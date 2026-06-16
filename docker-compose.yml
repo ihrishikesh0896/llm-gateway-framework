@@ -1,0 +1,80 @@
+services:
+
+  # ─── AI API Gateway ───────────────────────────────────────────────────────
+  gateway:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - ${GATEWAY_ENV_FILE:-.env}
+    environment:
+      PRESIDIO_ANALYZER_URL: http://presidio-analyzer:3000
+      PRESIDIO_ANONYMIZER_URL: http://presidio-anonymizer:3000
+      GITLEAKS_SIDECAR_URL: http://gitleaks-sidecar:8080
+      OLLAMA_BASE_URL: http://ollama:11434
+    depends_on:
+      presidio-analyzer:
+        condition: service_healthy
+      presidio-anonymizer:
+        condition: service_healthy
+      gitleaks-sidecar:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── PII Detection (Microsoft Presidio) ───────────────────────────────────
+  presidio-analyzer:
+    image: mcr.microsoft.com/presidio-analyzer@sha256:286e3fa7f3a7426e775e8564fe1870f1ba8f999d3ab8bbb8cc46a44355d9d6e9
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  presidio-anonymizer:
+    image: mcr.microsoft.com/presidio-anonymizer@sha256:a10a12a2a613d13cf29d3ad3641e3258444dd8c90403dd644a0a114c472c2483
+    ports:
+      - "3001:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # ─── Secret Detection (Gitleaks) ──────────────────────────────────────────
+  gitleaks-sidecar:
+    build:
+      context: services/gitleaks-sidecar
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/gitleaks_rules.toml:/app/gitleaks_rules.toml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─── Local LLM (Ollama) ───────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:0.30.8
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/11434'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

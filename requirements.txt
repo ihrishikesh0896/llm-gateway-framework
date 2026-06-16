@@ -1,0 +1,42 @@
+# AI API Gateway — pinned runtime dependencies
+# Generated from: pip freeze | filtered to direct + key transitive deps
+# Install: pip install -r requirements.txt
+
+# ── Core framework ─────────────────────────────────────────────────────────────
+fastapi==0.128.0
+starlette==0.41.3
+uvicorn[standard]==0.40.0
+pydantic==2.12.5
+pydantic-settings==2.9.1
+annotated-types==0.7.0
+typing-extensions==4.14.1
+
+# ── LLM provider SDKs ──────────────────────────────────────────────────────────
+openai==2.41.1
+anthropic==0.109.2
+google-genai==2.8.0
+
+# ── HTTP client (provider calls + sidecar calls) ───────────────────────────────
+httpx==0.28.1
+anyio==4.12.0
+sniffio==1.3.1
+h11==0.16.0
+certifi==2025.8.3
+idna==3.10
+charset-normalizer==3.4.3
+urllib3==2.5.0
+
+# ── Persistence ────────────────────────────────────────────────────────────────
+aiosqlite==0.22.1
+
+# ── Observability ──────────────────────────────────────────────────────────────
+prometheus-client==0.22.1
+
+# ── Config & utilities ─────────────────────────────────────────────────────────
+python-dotenv==1.2.1
+PyYAML==6.0.3
+click==8.1.8
+exceptiongroup==1.2.2
+
+# ── Dev / test (not needed in production) ──────────────────────────────────────
+# pip install -r requirements-dev.txt

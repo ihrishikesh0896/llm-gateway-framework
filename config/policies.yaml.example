@@ -1,0 +1,24 @@
+# AI API Gateway — Model access policies
+# Copy to config/policies.yaml and customize.
+#
+# Each key is an API key string or "default".
+# Rules: allowed_models (allowlist) takes precedence over denied_models (denylist).
+# Empty allowed_models = all models permitted.
+
+policies:
+  default:
+    allowed_models: []   # empty = all allowed
+    denied_models: []
+
+  # Example: finance team can only use specific models
+  "finance-team-api-key":
+    allowed_models:
+      - gpt-4o
+      - claude-sonnet-4-6
+
+  # Example: intern key cannot use the most expensive models
+  "intern-api-key":
+    denied_models:
+      - gpt-4o
+      - claude-opus-4-7
+      - gemini-1.5-pro

@@ -1,0 +1,55 @@
+# ── Secrets & local environment files ─────────────────────────────────────────
+.env
+.env.dev
+.env.local
+.env.staging
+.env.prod
+# .env.example is intentionally committed — it is the public template
+
+# ── Runtime data ───────────────────────────────────────────────────────────────
+gateway.db
+*.db
+*.db-shm
+*.db-wal
+
+# ── Python build & cache artefacts ────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.venv/
+venv/
+env/
+.python-version
+
+# ── Test & coverage ────────────────────────────────────────────────────────────
+.pytest_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# ── IDE & editor ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ─────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Personal dev tooling (Claude Code) ────────────────────────────────────────
+.claude/
+memory/
